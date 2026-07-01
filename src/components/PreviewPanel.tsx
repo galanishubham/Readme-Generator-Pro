@@ -18,10 +18,29 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
   const [copied, setCopied] = useState(false);
   const { addToast } = useToast();
 
+  function MarkdownImg(props: React.ImgHTMLAttributes<HTMLImageElement>) {
+    const [error, setError] = useState(false);
+    if (error) {
+      return <></>;
+    }
+    return (
+      <img
+        {...props}
+        className="max-w-full inline-block rounded-xl mb-4 border border-zinc-200 dark:border-zinc-800"
+        loading="lazy"
+        onError={() => setError(true)}
+      />
+    );
+  }
+
   const handleCopy = async () => {
     await navigator.clipboard.writeText(markdown);
     setCopied(true);
-    addToast({ title: "Copied!", description: "Markdown copied to clipboard", variant: "success" });
+    addToast({
+      title: "Copied!",
+      description: "Markdown copied to clipboard",
+      variant: "success",
+    });
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -36,7 +55,9 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
           <div className="h-3 w-3 rounded-full bg-red-500" />
           <div className="h-3 w-3 rounded-full bg-yellow-500" />
           <div className="h-3 w-3 rounded-full bg-green-500" />
-          <span className="ml-2 text-xs text-zinc-500 dark:text-zinc-400 font-mono">README.md</span>
+          <span className="ml-2 text-xs text-zinc-500 dark:text-zinc-400 font-mono">
+            README.md
+          </span>
         </div>
         <div className="flex items-center gap-1">
           <button
@@ -44,7 +65,11 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
             className="p-2 rounded-lg text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
             title="Copy markdown"
           >
-            {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+            {copied ? (
+              <Check className="h-4 w-4 text-green-500" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
           </button>
           <div className="flex items-center gap-1 ml-2 p-1 rounded-lg bg-zinc-100 dark:bg-zinc-800">
             <button
@@ -86,10 +111,14 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
 
       {/* Content */}
       <div className="flex-1 overflow-hidden">
-        <div className={`h-full ${showEditor && showPreview ? "grid grid-cols-2" : "grid"} overflow-auto`}>
+        <div
+          className={`h-full ${showEditor && showPreview ? "grid grid-cols-2" : "grid"} overflow-auto`}
+        >
           {/* Editor */}
           {showEditor && (
-            <div className={`${showPreview ? "border-r border-zinc-200 dark:border-zinc-800" : ""} overflow-auto`}>
+            <div
+              className={`${showPreview ? "border-r border-zinc-200 dark:border-zinc-800" : ""} overflow-auto`}
+            >
               <textarea
                 readOnly
                 value={markdown}
@@ -128,7 +157,9 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
                       </h4>
                     ),
                     p: ({ children }) => (
-                      <p className="mb-4 text-zinc-700 dark:text-zinc-300 leading-relaxed">{children}</p>
+                      <p className="mb-4 text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                        {children}
+                      </p>
                     ),
                     a: ({ children, href }) => (
                       <a
@@ -141,20 +172,24 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
                       </a>
                     ),
                     strong: ({ children }) => (
-                      <strong className="font-semibold text-zinc-900 dark:text-zinc-100">{children}</strong>
+                      <strong className="font-semibold text-zinc-900 dark:text-zinc-100">
+                        {children}
+                      </strong>
                     ),
                     em: ({ children }) => (
-                      <em className="italic text-zinc-800 dark:text-zinc-200">{children}</em>
+                      <em className="italic text-zinc-800 dark:text-zinc-200">
+                        {children}
+                      </em>
                     ),
                     del: ({ children }) => (
-                      <del className="text-zinc-500 dark:text-zinc-400">{children}</del>
+                      <del className="text-zinc-500 dark:text-zinc-400">
+                        {children}
+                      </del>
                     ),
                     code: ({ children, className }) => {
                       const isBlock = className?.includes("language-");
                       if (isBlock) {
-                        return (
-                          <code className={className}>{children}</code>
-                        );
+                        return <code className={className}>{children}</code>;
                       }
                       return (
                         <code className="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-sm font-mono text-red-600 dark:text-red-400">
@@ -167,14 +202,7 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
                         {children}
                       </pre>
                     ),
-                    img: ({ src, alt }) => (
-                      <img
-                        src={src}
-                        alt={alt}
-                        className="max-w-full rounded-xl mb-4 border border-zinc-200 dark:border-zinc-800"
-                        loading="lazy"
-                      />
-                    ),
+                    img: MarkdownImg,
                     ul: ({ children }) => (
                       <ul className="list-disc list-inside mb-4 space-y-1 text-zinc-700 dark:text-zinc-300 marker:text-zinc-400 dark:marker:text-zinc-500">
                         {children}
@@ -185,13 +213,17 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
                         {children}
                       </ol>
                     ),
-                    li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+                    li: ({ children }) => (
+                      <li className="leading-relaxed">{children}</li>
+                    ),
                     blockquote: ({ children }) => (
                       <blockquote className="border-l-4 border-zinc-300 dark:border-zinc-600 pl-4 py-1 mb-4 text-zinc-600 dark:text-zinc-400 italic bg-zinc-50 dark:bg-zinc-800/50 rounded-r-lg">
                         {children}
                       </blockquote>
                     ),
-                    hr: () => <hr className="my-6 border-zinc-200 dark:border-zinc-700" />,
+                    hr: () => (
+                      <hr className="my-6 border-zinc-200 dark:border-zinc-700" />
+                    ),
                     table: ({ children }) => (
                       <div className="overflow-x-auto mb-4">
                         <table className="min-w-full border border-zinc-200 dark:border-zinc-700 rounded-lg overflow-hidden">
@@ -200,13 +232,19 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
                       </div>
                     ),
                     thead: ({ children }) => (
-                      <thead className="bg-zinc-100 dark:bg-zinc-800">{children}</thead>
+                      <thead className="bg-zinc-100 dark:bg-zinc-800">
+                        {children}
+                      </thead>
                     ),
                     tbody: ({ children }) => (
-                      <tbody className="divide-y divide-zinc-200 dark:divide-zinc-700">{children}</tbody>
+                      <tbody className="divide-y divide-zinc-200 dark:divide-zinc-700">
+                        {children}
+                      </tbody>
                     ),
                     tr: ({ children }) => (
-                      <tr className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50">{children}</tr>
+                      <tr className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50">
+                        {children}
+                      </tr>
                     ),
                     th: ({ children }) => (
                       <th className="px-4 py-2 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 border-r border-zinc-200 dark:border-zinc-700 last:border-r-0">

@@ -13,11 +13,30 @@ import {
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { PreviewPanel } from "@/components/PreviewPanel";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
+
+const SAMPLE_MARKDOWN = `# Hi, I'm John Doe 👋
+
+I'm a Full Stack Developer passionate about building amazing web applications.
+
+## 🛠️ Skills
+
+![JavaScript](https://img.shields.io/badge/JavaScript-%23F7DF1E?logo=javascript&logoColor=white&style=for-the-badge)
+![TypeScript](https://img.shields.io/badge/TypeScript-%233178C6?logo=typescript&logoColor=white&style=for-the-badge)
+![HTML](https://img.shields.io/badge/HTML-%23E34F26?logo=html5&logoColor=white&style=for-the-badge)
+![CSS](https://img.shields.io/badge/CSS-%231572B6?logo=css3&logoColor=white&style=for-the-badge)
+![React](https://img.shields.io/badge/React-%2361DAFB?logo=react&logoColor=white&style=for-the-badge)
+
+## 🔗 Connect with me
+
+![Facebook](https://img.shields.io/badge/Facebook-%231877F2?logo=facebook&logoColor=white&style=for-the-badge)
+![YouTube](https://img.shields.io/badge/YouTube-%23FF0000?logo=youtube&logoColor=white&style=for-the-badge)
+![LinkedIn](https://img.shields.io/badge/LinkedIn-%230A66C2?logo=linkedin&logoColor=white&style=for-the-badge)`;
 
 const features = [
   {
@@ -108,35 +127,7 @@ export default function Home() {
             </div>
 
             <div className="mt-16 relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-3xl blur-2xl" />
-              <div className="relative rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 p-4 sm:p-6 shadow-2xl">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="h-3 w-3 rounded-full bg-red-500" />
-                  <div className="h-3 w-3 rounded-full bg-yellow-500" />
-                  <div className="h-3 w-3 rounded-full bg-green-500" />
-                  <span className="ml-2 text-xs text-zinc-500 dark:text-zinc-400">
-                    README.md
-                  </span>
-                </div>
-                <div className="rounded-xl bg-white dark:bg-zinc-950 p-4 sm:p-6 font-mono text-xs sm:text-sm overflow-x-auto">
-                  <pre className="text-zinc-700 dark:text-zinc-300 whitespace-pre-wrap">
-                    {`# Hi, I'm John Doe 👋
-
-I'm a Full Stack Developer passionate about building amazing web applications.
-
-## 🛠️ Skills
-\`JavaScript\` · \`TypeScript\` · \`React\` · \`Next.js\` · \`Node.js\` · \`Python\`
-
-## 📊 GitHub Stats
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=johndoe)
-
-## 🔗 Connect with me
-- [🐙 GitHub](https://github.com/johndoe)
-- [💼 LinkedIn](https://linkedin.com/in/johndoe)
-- [🐦 Twitter](https://twitter.com/johndoe)`}
-                  </pre>
-                </div>
-              </div>
+              <PreviewPanel markdown={SAMPLE_MARKDOWN} />
             </div>
           </motion.div>
         </div>
