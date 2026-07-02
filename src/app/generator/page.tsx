@@ -967,26 +967,13 @@ export default function GeneratorPage() {
               README Generator
             </h1>
             <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-              Enter your GitHub username and write a short intro.
+              Create a stunning GitHub profile README in minutes
             </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleCopy}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors"
-            >
-              <Copy className="h-4 w-4" /> Copy
-            </button>
-            <button
-              onClick={handleDownload}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
-            >
-              <Download className="h-4 w-4" /> Download
-            </button>
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr,1fr] gap-8">
+        {/* <div className="grid lg:grid-cols-[1fr_1fr] gap-8">  */}
+        <div>
           {/* Left: Form */}
           <div className="space-y-6">
             {/* Steps */}
@@ -1029,7 +1016,7 @@ export default function GeneratorPage() {
                   {currentStep === 1 && (
                     <SkillsStep formData={formData} setFormData={setFormData} />
                   )}
-                  {/* TODO: Add this feature later */}
+                  {/* TODO: Version 2.0 */}
                   {/* {currentStep === 2 && (
                     <GithubStatsStep
                       formData={formData}
@@ -1062,23 +1049,24 @@ export default function GeneratorPage() {
                 >
                   <ChevronLeft className="h-4 w-4" /> Previous
                 </button>
-                <button
-                  onClick={next}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-medium bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-lg"
-                >
-                  {currentStep === steps.length - 1 ? "Finish" : "Next"}{" "}
-                  <ChevronRight className="h-4 w-4" />
-                </button>
+                {currentStep !== steps.length - 1 && (
+                  <button
+                    onClick={next}
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-medium bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-lg"
+                  >
+                    Next <ChevronRight className="h-4 w-4" />
+                  </button>
+                )}
               </div>
             </div>
           </div>
 
           {/* Right: Preview */}
-          <div className="hidden lg:block">
+          {/* <div className="hidden lg:block">
             <div className="sticky top-20 h-[calc(100vh-6rem)]">
               <PreviewPanel markdown={updateMarkdown} />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -1407,58 +1395,8 @@ function PreviewStep({
   const md = generateReadme(formData);
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-semibold mb-1">Preview & Export</h3>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-6">
-          Review your README and export it when ready.
-        </p>
-      </div>
-      <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-6">
-        <pre className="text-xs text-zinc-700 dark:text-zinc-300 font-mono whitespace-pre-wrap overflow-auto max-h-96">
-          {md}
-        </pre>
-      </div>
-      <div className="flex flex-wrap gap-3">
-        <button
-          onClick={() => {
-            navigator.clipboard.writeText(md);
-            addToast({
-              title: "Copied!",
-              description: "README copied to clipboard",
-              variant: "success",
-            });
-          }}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors"
-        >
-          <Copy className="h-4 w-4" /> Copy to Clipboard
-        </button>
-        <button
-          onClick={() => {
-            const blob = new Blob([md], { type: "text/markdown" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "README.md";
-            a.click();
-            URL.revokeObjectURL(url);
-            addToast({
-              title: "Downloaded!",
-              description: "README.md downloaded",
-              variant: "success",
-            });
-          }}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-500 transition-colors"
-        >
-          <Download className="h-4 w-4" /> Download README.md
-        </button>
-        <button className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-          <Save className="h-4 w-4" /> Save Draft
-        </button>
-        <button className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-          <Share2 className="h-4 w-4" /> Share Config
-        </button>
-      </div>
+    <div className="h-[calc(100vh-6rem)]">
+      <PreviewPanel markdown={md} />
     </div>
   );
 }

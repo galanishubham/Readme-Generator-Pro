@@ -4,7 +4,15 @@ import { useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { Copy, Check, Eye, Pencil, Columns } from "lucide-react";
+import {
+  Copy,
+  Check,
+  Eye,
+  Pencil,
+  Columns,
+  Download,
+  Share2,
+} from "lucide-react";
 import { useToast } from "@/components/ui/toast";
 
 type ViewMode = "edit" | "preview" | "split";
@@ -71,6 +79,29 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
               <Copy className="h-4 w-4" />
             )}
           </button>
+          <button
+            onClick={() => {
+              const blob = new Blob([markdown], { type: "text/markdown" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "README.md";
+              a.click();
+              URL.revokeObjectURL(url);
+              addToast({
+                title: "Downloaded!",
+                description: "README.md downloaded",
+                variant: "success",
+              });
+            }}
+            className="p-2 rounded-lg text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+          >
+            <Download className="h-4 w-4" />
+          </button>
+          {/* TODO: Future version */}
+          {/* <button className="p-2 rounded-lg text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+            <Share2 className="h-4 w-4" />
+          </button> */}
           <div className="flex items-center gap-1 ml-2 p-1 rounded-lg bg-zinc-100 dark:bg-zinc-800">
             <button
               onClick={() => setViewMode("edit")}
