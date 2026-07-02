@@ -98,7 +98,7 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
           >
             <Download className="h-4 w-4" />
           </button>
-          {/* TODO: Future version */}
+          {/* TODO: Version 2.0 */}
           {/* <button className="p-2 rounded-lg text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
             <Share2 className="h-4 w-4" />
           </button> */}
