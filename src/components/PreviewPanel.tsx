@@ -4,15 +4,7 @@ import { useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import {
-  Copy,
-  Check,
-  Eye,
-  Pencil,
-  Columns,
-  Download,
-  Share2,
-} from "lucide-react";
+import { Copy, Check, Eye, Pencil, Columns, Download } from "lucide-react";
 import { useToast } from "@/components/ui/toast";
 
 type ViewMode = "edit" | "preview" | "split";

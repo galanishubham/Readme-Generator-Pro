@@ -8,12 +8,48 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 
 const templates = [
-  { id: 1, name: "Developer", author: "Community", stars: 2847, description: "Clean developer profile with skills and stats" },
-  { id: 2, name: "Student", author: "Community", stars: 1523, description: "Perfect for students and bootcamp grads" },
-  { id: 3, name: "Open Source Contributor", author: "Community", stars: 982, description: "Highlight open source contributions" },
-  { id: 4, name: "Minimal", author: "Community", stars: 3421, description: "Minimal and elegant design" },
-  { id: 5, name: "Designer", author: "Community", stars: 756, description: "For designers and creative developers" },
-  { id: 6, name: "Data Scientist", author: "Community", stars: 634, description: "Showcase data science and ML work" },
+  {
+    id: 1,
+    name: "Developer",
+    author: "Community",
+    stars: 2847,
+    description: "Clean developer profile with skills and stats",
+  },
+  {
+    id: 2,
+    name: "Student",
+    author: "Community",
+    stars: 1523,
+    description: "Perfect for students and bootcamp grads",
+  },
+  {
+    id: 3,
+    name: "Open Source Contributor",
+    author: "Community",
+    stars: 982,
+    description: "Highlight open source contributions",
+  },
+  {
+    id: 4,
+    name: "Minimal",
+    author: "Community",
+    stars: 3421,
+    description: "Minimal and elegant design",
+  },
+  {
+    id: 5,
+    name: "Designer",
+    author: "Community",
+    stars: 756,
+    description: "For designers and creative developers",
+  },
+  {
+    id: 6,
+    name: "Data Scientist",
+    author: "Community",
+    stars: 634,
+    description: "Showcase data science and ML work",
+  },
 ];
 
 export function TemplateGallery() {
@@ -21,24 +57,34 @@ export function TemplateGallery() {
   const [copiedId, setCopiedId] = useState<number | null>(null);
   const { addToast } = useToast();
 
-  const filtered = templates.filter((t) =>
-    t.name.toLowerCase().includes(search.toLowerCase()) ||
-    t.description.toLowerCase().includes(search.toLowerCase())
+  const filtered = templates.filter(
+    (t) =>
+      t.name.toLowerCase().includes(search.toLowerCase()) ||
+      t.description.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const handleUse = async (template: typeof templates[0]) => {
-    await navigator.clipboard.writeText(`# Template: ${template.name}\n\nUse this template as a starting point.`);
+  const handleUse = async (template: (typeof templates)[0]) => {
+    await navigator.clipboard.writeText(
+      `# Template: ${template.name}\n\nUse this template as a starting point.`,
+    );
     setCopiedId(template.id);
-    addToast({ title: "Template copied!", description: `"${template.name}" copied to clipboard.`, variant: "success" });
+    addToast({
+      title: "Template copied!",
+      description: `"${template.name}" copied to clipboard.`,
+      variant: "success",
+    });
     setTimeout(() => setCopiedId(null), 2000);
   };
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Template Gallery</h1>
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+          Template Gallery
+        </h1>
         <p className="text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
-          Start with a professionally designed template and customize it to match your style.
+          Start with a professionally designed template and customize it to
+          match your style.
         </p>
       </div>
 
@@ -67,7 +113,9 @@ export function TemplateGallery() {
               <h3 className="text-lg font-semibold group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                 {template.name}
               </h3>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">{template.description}</p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+                {template.description}
+              </p>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
@@ -80,9 +128,13 @@ export function TemplateGallery() {
                 className="rounded-lg"
               >
                 {copiedId === template.id ? (
-                  <><Check className="h-3.5 w-3.5 mr-1" /> Copied</>
+                  <>
+                    <Check className="h-3.5 w-3.5 mr-1" /> Copied
+                  </>
                 ) : (
-                  <><Copy className="h-3.5 w-3.5 mr-1" /> Use Template</>
+                  <>
+                    <Copy className="h-3.5 w-3.5 mr-1" /> Use Template
+                  </>
                 )}
               </Button>
             </div>

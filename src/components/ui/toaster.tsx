@@ -1,13 +1,14 @@
 "use client";
 
-import React from "react";
 import { useToast } from "./toast";
 
 const variantStyles: Record<string, string> = {
   default: "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800",
-  success: "bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-900",
+  success:
+    "bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-900",
   error: "bg-red-50 dark:bg-red-950/50 border-red-200 dark:border-red-900",
-  warning: "bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-900",
+  warning:
+    "bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-900",
 };
 
 export function Toaster() {
@@ -20,15 +21,19 @@ export function Toaster() {
           key={toast.id}
           className={cn(
             "pointer-events-auto relative flex w-full items-center justify-between gap-4 rounded-xl border p-4 shadow-lg transition-all",
-            variantStyles[toast.variant || "default"]
+            variantStyles[toast.variant || "default"],
           )}
         >
           <div className="flex-1">
             {toast.title && (
-              <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{toast.title}</div>
+              <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                {toast.title}
+              </div>
             )}
             {toast.description && (
-              <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-0.5">{toast.description}</div>
+              <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-0.5">
+                {toast.description}
+              </div>
             )}
           </div>
           <button
