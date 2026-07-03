@@ -36,6 +36,10 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+button {
+ cursor: pointer;
+}
+
 ::selection {
   background: rgba(99, 102, 241, 0.2);
 }

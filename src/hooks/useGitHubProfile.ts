@@ -2,8 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { useForm } from "@/context/FormContext";
-import { fetchGitHubProfile, GitHubUser } from "@/lib/githubApi";
-import { Loader2, User } from "lucide-react";
+import { fetchGitHubProfile } from "@/lib/githubApi";
 
 export function useGitHubProfile() {
   const { data, updateData } = useForm();

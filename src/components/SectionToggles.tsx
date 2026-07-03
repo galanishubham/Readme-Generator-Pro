@@ -1,7 +1,6 @@
 "use client";
 
 import { useForm } from "@/context/FormContext";
-import { SectionConfig } from "@/types";
 
 const SECTIONS = [
   { id: "header", label: "Header / Intro", icon: "👋" },
@@ -18,7 +17,7 @@ export function SectionToggles() {
 
   const toggleSection = (id: string) => {
     const sections = data.sections.map((s) =>
-      s.id === id ? { ...s, enabled: !s.enabled } : s
+      s.id === id ? { ...s, enabled: !s.enabled } : s,
     );
     updateData({ sections });
   };
@@ -42,8 +41,18 @@ export function SectionToggles() {
                 }`}
             >
               {current?.enabled && (
-                <svg className="w-3 h-3 text-background" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                <svg
+                  className="w-3 h-3 text-background"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={3}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
               )}
             </div>

@@ -10,15 +10,7 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { Button } from "@/components/ui/button";
 import { PreviewPanel } from "@/components/PreviewPanel";
-
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
 
 const SAMPLE_MARKDOWN = `# Hi, I'm John Doe 👋
 

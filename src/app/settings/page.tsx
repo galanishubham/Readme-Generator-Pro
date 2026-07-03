@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Settings | Gitfolio",
@@ -34,7 +32,6 @@ export default function SettingsPage() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
