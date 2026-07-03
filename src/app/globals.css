@@ -22,6 +22,8 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 * {
   scrollbar-width: thin;
   scrollbar-color: #888 transparent;

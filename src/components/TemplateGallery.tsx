@@ -44,7 +44,7 @@ export function TemplateGallery() {
 
       <div className="max-w-md mx-auto mb-10">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400 dark:text-zinc-300" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
