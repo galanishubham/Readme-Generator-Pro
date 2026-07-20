@@ -4,21 +4,14 @@ import { ThemeToggle } from "./ThemeToggle";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import {
-  BookOpen,
-  Home,
-  LayoutTemplate,
-  Settings,
-  GitBranch,
-  Sparkles,
-} from "lucide-react";
+import { BookOpen, Home, GitBranch, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/generator", label: "Generator", icon: Sparkles },
-  { href: "/templates", label: "Templates", icon: LayoutTemplate },
-  { href: "/settings", label: "Settings", icon: Settings },
+  // { href: "/templates", label: "Templates", icon: LayoutTemplate },
+  // { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 export function Navbar() {
