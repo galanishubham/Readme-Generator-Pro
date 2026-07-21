@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, GitBranch, Heart } from "lucide-react";
+import { BookOpen, Heart } from "lucide-react";
 
 export function Footer() {
   return (
@@ -23,7 +23,7 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-sm mb-3">Product</h4>
             <ul className="space-y-2">
-              {["Generator", "Templates", "Themes", "Badges"].map((item) => (
+              {["Generator", "Badges"].map((item) => (
                 <li key={item}>
                   <Link
                     href={
@@ -43,7 +43,7 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-sm mb-3">Resources</h4>
             <ul className="space-y-2">
-              {["Documentation", "Blog", "Support", "Changelog"].map((item) => (
+              {["Documentation", "Support"].map((item) => (
                 <li key={item}>
                   <span className="text-sm text-zinc-600 dark:text-zinc-400 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
                     {item}
@@ -59,16 +59,6 @@ export function Footer() {
             Built with <Heart className="h-3.5 w-3.5 text-red-500 mx-1" /> for
             the developer community
           </p>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-zinc-500 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-            >
-              <GitBranch className="h-5 w-5" />
-            </a>
-          </div>
         </div>
       </div>
     </footer>

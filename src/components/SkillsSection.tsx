@@ -1,93 +1,77 @@
 "use client";
 
+import { PREDEFINED_SKILLS, SKILL_CATEGORIES } from "@/app/generator/data";
+import { SkillDef } from "@/app/generator/types";
 import { useForm } from "@/context/FormContext";
-import { SkillCategory, Skill } from "@/types";
-import { Plus, Trash2 } from "lucide-react";
-
-const SKILL_CATEGORIES: SkillCategory[] = [
-  "Frontend",
-  "Backend",
-  "DevOps",
-  "Database",
-  "Mobile",
-  "Tools",
-  "Other",
-];
-
-function generateId() {
-  return Math.random().toString(36).slice(2, 9);
-}
+import { cn } from "@/lib/utils";
 
 export function SkillsSection() {
   const { data, updateData } = useForm();
 
-  const addSkill = () => {
+  const toggleSkill = (id: string) => {
     updateData({
-      skills: [...data.skills, { id: generateId(), name: "", category: "Other" }],
+      ...data,
+      skills: data.skills.includes(id)
+        ? data.skills.filter((s) => s !== id)
+        : [...data.skills, id],
     });
   };
 
-  const removeSkill = (id: string) => {
-    updateData({ skills: data.skills.filter((s) => s.id !== id) });
-  };
+  const grouped = SKILL_CATEGORIES.map((category) => ({
+    category,
+    skills: PREDEFINED_SKILLS.filter((s) => s.category === category),
+  })).filter((group) => group.skills.length > 0);
 
-  const updateSkill = (id: string, field: keyof Skill, value: string) => {
-    updateData({
-      skills: data.skills.map((s) =>
-        s.id === id ? { ...s, [field]: value } : s
-      ),
-    });
-  };
+  function getSkillBadgeUrl(skill: SkillDef): string {
+    return `https://img.shields.io/badge/${encodeURIComponent(skill.name)}-${encodeURIComponent(skill.color)}?logo=${skill.logo}&logoColor=white&style=for-the-badge`;
+  }
 
   return (
-    <div className="space-y-3">
-      {data.skills.length === 0 && (
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 text-center py-4">
-          No skills added yet. Click below to add some.
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-semibold mb-1">Skills & Technologies</h3>
+        <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-6">
+          Click to select skills. Selected badges will appear in your README.
         </p>
-      )}
-      {data.skills.map((skill) => (
-        <div key={skill.id} className="flex gap-2 items-start">
-          <input
-            type="text"
-            value={skill.name}
-            onChange={(e) => updateSkill(skill.id, "name", e.target.value)}
-            placeholder="Skill name"
-            className="flex-1 px-3.5 py-2.5 rounded-xl border border-solid border-black/[.08] dark:border-white/[.145]
-              bg-white dark:bg-[#141414] text-foreground placeholder:text-zinc-400 dark:placeholder:text-zinc-600
-              focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all text-sm"
-          />
-          <select
-            value={skill.category}
-            onChange={(e) => updateSkill(skill.id, "category", e.target.value)}
-            className="px-3 py-2.5 rounded-xl border border-solid border-black/[.08] dark:border-white/[.145]
-              bg-white dark:bg-[#141414] text-foreground text-sm
-              focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
-          >
-            {SKILL_CATEGORIES.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
-          <button
-            onClick={() => removeSkill(skill.id)}
-            className="p-2.5 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-950 transition-colors"
-            aria-label="Remove skill"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
-        </div>
-      ))}
-      <button
-        onClick={addSkill}
-        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium
-          border border-dashed border-black/[.15] dark:border-white/[.15]
-          text-zinc-600 dark:text-zinc-400 hover:border-foreground/50 transition-colors w-full justify-center"
-      >
-        <Plus className="w-4 h-4" />
-        Add Skill
-      </button>
+      </div>
+      <div className="space-y-6">
+        {grouped.map((group) => (
+          <div key={group.category} className="space-y-3">
+            <h4 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+              {group.category}
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {group.skills.map((skill) => {
+                const isSelected = data.skills.includes(skill.id);
+                return (
+                  <button
+                    key={skill.id}
+                    onClick={() => toggleSkill(skill.id)}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border transition-all",
+                      isSelected
+                        ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-950/30 shadow-sm"
+                        : "border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600",
+                    )}
+                  >
+                    <img
+                      src={getSkillBadgeUrl(skill)}
+                      alt={skill.name}
+                      className="h-6"
+                      loading="lazy"
+                    />
+                    {isSelected && (
+                      <span className="text-indigo-600 dark:text-indigo-400 text-[10px] leading-none">
+                        ✓
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  ReactNode,
+} from "react";
 import { FormData, DEFAULT_FORM_DATA } from "@/types";
 
 interface FormContextType {
@@ -14,46 +20,30 @@ const FormContext = createContext<FormContextType | null>(null);
 
 export function FormProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<FormData>(DEFAULT_FORM_DATA);
-  const [version, setVersion] = useState(0);
 
   const generatedMarkdown = useMemoizedMarkdown(data);
 
   const updateData = useCallback((updates: Partial<FormData>) => {
-    setData((prev) => {
-      let next: FormData;
-      const keys = Object.keys(updates) as Array<keyof FormData>;
-
-      if (
-        keys.length === 1 &&
-        (keys[0] === "socialLinks" || keys[0] === "githubStats")
-      ) {
-        const k = keys[0];
-        const value = updates[k];
-        if (k === "socialLinks") {
-          next = { ...prev, socialLinks: { ...prev.socialLinks, ...(value as Record<string, string>) } };
-        } else {
-          next = { ...prev, githubStats: { ...prev.githubStats, ...(value as Record<string, boolean>) } };
-        }
-      } else if (keys.length === 1 && (keys[0] === "sections" || keys[0] === "skills" || keys[0] === "projects")) {
-        const k = keys[0];
-        const value = updates[k];
-        next = { ...prev, [k]: value as FormData[typeof k] } as FormData;
-      } else {
-        next = { ...prev, ...updates } as FormData;
-      }
-
-      return next;
-    });
-    setVersion((v) => v + 1);
+    setData((prev) => ({
+      ...prev,
+      ...updates,
+      socials: updates.socials
+        ? {
+            ...prev.socials,
+            ...updates.socials,
+          }
+        : prev.socials,
+    }));
   }, []);
 
   const reset = useCallback(() => {
     setData(DEFAULT_FORM_DATA);
-    setVersion((v) => v + 1);
   }, []);
 
   return (
-    <FormContext.Provider value={{ data, updateData, reset, generatedMarkdown }}>
+    <FormContext.Provider
+      value={{ data, updateData, reset, generatedMarkdown }}
+    >
       {children}
     </FormContext.Provider>
   );

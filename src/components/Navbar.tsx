@@ -4,21 +4,12 @@ import { ThemeToggle } from "./ThemeToggle";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import {
-  BookOpen,
-  Home,
-  LayoutTemplate,
-  Settings,
-  GitBranch,
-  Sparkles,
-} from "lucide-react";
+import { BookOpen, Home, GitBranch, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/generator", label: "Generator", icon: Sparkles },
-  { href: "/templates", label: "Templates", icon: LayoutTemplate },
-  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 export function Navbar() {
@@ -80,15 +71,6 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-3">
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-            >
-              <GitBranch className="h-4 w-4" />
-              <span className="hidden lg:inline">Star on GitHub</span>
-            </a>
             <ThemeToggle />
           </div>
         </div>
