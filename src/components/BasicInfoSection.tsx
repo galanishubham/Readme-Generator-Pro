@@ -24,17 +24,6 @@ export function BasicInfoSection() {
               value={data.fullName}
               onChange={(e) => updateData({ fullName: e.target.value })}
             />
-            {/* <button
-              onClick={handleFetch}
-              disabled={fetching}
-              className="inline-flex items-center gap-2 px-4 h-10 rounded-xl text-sm font-medium bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              {fetching ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                "Fetch"
-              )}
-            </button> */}
           </div>
         </div>
         <div className="space-y-2">

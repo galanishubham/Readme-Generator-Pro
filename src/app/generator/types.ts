@@ -17,17 +17,4 @@ export interface SocialPlatform {
   baseUrl?: string;
 }
 
-interface FormData {
-  username: string;
-  bio: string;
-  skills: string[];
-  showStatsCard: boolean;
-  showStreak: boolean;
-  showTopLangs: boolean;
-  showTrophies: boolean;
-  showActivity: boolean;
-  showViews: boolean;
-  socials: Record<string, string>;
-}
-
 export type ToastVariant = "default" | "success" | "error" | "warning";

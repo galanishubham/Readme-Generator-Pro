@@ -42,17 +42,6 @@ export interface GithubStatsConfig {
 }
 
 export interface FormData {
-  // fullName: string;
-  // username: string;
-  // bio: string;
-  // location: string;
-  // socialLinks: SocialLinks;
-  // skills: Skill[];
-  // projects: Project[];
-  // githubStats: GithubStatsConfig;
-  // sections: SectionConfig[];
-  // customMarkdown: string;
-
   fullName: string;
   username: string;
   bio: string;
@@ -64,30 +53,10 @@ export interface FormData {
   showActivity: boolean;
   showViews: boolean;
   socials: Record<string, string>;
-  // socialLinks: SocialLinks;
   sections: SectionConfig[];
 }
 
 export const DEFAULT_FORM_DATA: FormData = {
-  // fullName: "",
-  // username: "",
-  // bio: "",
-  // location: "",
-  // socialLinks: {
-  //   github: "",
-  //   linkedin: "",
-  //   twitter: "",
-  //   portfolio: "",
-  // },
-  // skills: [],
-  // projects: [],
-  // githubStats: {
-  //   statsCard: true,
-  //   topLanguages: false,
-  //   streakStats: false,
-  //   trophies: false,
-  // },
-
   fullName: "",
   username: "",
   bio: "",
@@ -103,7 +72,6 @@ export const DEFAULT_FORM_DATA: FormData = {
     { id: "header", enabled: true, order: 0 },
     { id: "about", enabled: true, order: 1 },
     { id: "skills", enabled: true, order: 2 },
-    // { id: "projects", enabled: true, order: 3 },
     { id: "github-stats", enabled: true, order: 4 },
     { id: "social-links", enabled: false, order: 5 },
     { id: "custom", enabled: false, order: 6 },

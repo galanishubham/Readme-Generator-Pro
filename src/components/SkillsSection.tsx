@@ -1,6 +1,7 @@
 "use client";
 
 import { PREDEFINED_SKILLS, SKILL_CATEGORIES } from "@/app/generator/data";
+import { SkillDef } from "@/app/generator/types";
 import { useForm } from "@/context/FormContext";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +21,10 @@ export function SkillsSection() {
     category,
     skills: PREDEFINED_SKILLS.filter((s) => s.category === category),
   })).filter((group) => group.skills.length > 0);
+
+  function getSkillBadgeUrl(skill: SkillDef): string {
+    return `https://img.shields.io/badge/${encodeURIComponent(skill.name)}-${encodeURIComponent(skill.color)}?logo=${skill.logo}&logoColor=white&style=for-the-badge`;
+  }
 
   return (
     <div className="space-y-6">
@@ -50,7 +55,7 @@ export function SkillsSection() {
                     )}
                   >
                     <img
-                      src={`https://img.shields.io/badge/${encodeURIComponent(skill.name)}-${encodeURIComponent(skill.color)}?logo=${skill.logo}&logoColor=white&style=for-the-badge`}
+                      src={getSkillBadgeUrl(skill)}
                       alt={skill.name}
                       className="h-6"
                       loading="lazy"

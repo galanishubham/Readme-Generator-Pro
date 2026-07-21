@@ -20,13 +20,14 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
 
   function MarkdownImg(props: React.ImgHTMLAttributes<HTMLImageElement>) {
     const [error, setError] = useState(false);
+
     if (error) {
       return <></>;
     }
     return (
       <img
         {...props}
-        className="max-w-full inline-block rounded-xl mb-4 border border-zinc-200 dark:border-zinc-800"
+        className="max-w-full inline-block mb-4 border border-zinc-200 dark:border-zinc-800"
         loading="lazy"
         onError={() => setError(true)}
       />
@@ -42,6 +43,21 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
       variant: "success",
     });
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([markdown], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "README.md";
+    a.click();
+    URL.revokeObjectURL(url);
+    addToast({
+      title: "Downloaded!",
+      description: "README.md downloaded",
+      variant: "success",
+    });
   };
 
   const showEditor = viewMode === "edit" || viewMode === "split";
@@ -73,27 +89,12 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
           </button>
           <button
             onClick={() => {
-              const blob = new Blob([markdown], { type: "text/markdown" });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = "README.md";
-              a.click();
-              URL.revokeObjectURL(url);
-              addToast({
-                title: "Downloaded!",
-                description: "README.md downloaded",
-                variant: "success",
-              });
+              handleDownload();
             }}
             className="p-2 rounded-lg text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           >
             <Download className="h-4 w-4" />
           </button>
-          {/* TODO: Version 2.0 */}
-          {/* <button className="p-2 rounded-lg text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-            <Share2 className="h-4 w-4" />
-          </button> */}
           <div className="flex items-center gap-1 ml-2 p-1 rounded-lg bg-zinc-100 dark:bg-zinc-800">
             <button
               onClick={() => setViewMode("edit")}

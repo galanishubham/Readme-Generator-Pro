@@ -108,14 +108,6 @@ export default function Home() {
               >
                 Generate README <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
-              <Link
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 h-12 px-8 text-base rounded-xl border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors font-medium"
-              >
-                <GitBranch className="mr-2 h-4 w-4" /> View on GitHub
-              </Link>
             </div>
 
             <div className="mt-16 relative">
