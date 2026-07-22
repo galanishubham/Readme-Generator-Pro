@@ -4,7 +4,7 @@ import { useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { Copy, Check, Eye, Pencil, Columns, Download } from "lucide-react";
+import { Copy, Check, Download } from "lucide-react";
 import { useToast } from "@/components/ui/toast";
 
 type ViewMode = "edit" | "preview" | "split";
@@ -95,41 +95,6 @@ export function PreviewPanel({ markdown }: PreviewPanelProps) {
           >
             <Download className="h-4 w-4" />
           </button>
-          <div className="flex items-center gap-1 ml-2 p-1 rounded-lg bg-zinc-100 dark:bg-zinc-800">
-            <button
-              onClick={() => setViewMode("edit")}
-              className={`p-1.5 rounded-md text-xs font-medium transition-colors ${
-                viewMode === "edit"
-                  ? "bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-sm"
-                  : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300"
-              }`}
-              title="Edit mode"
-            >
-              <Pencil className="h-4 w-4" />
-            </button>
-            <button
-              onClick={() => setViewMode("preview")}
-              className={`p-1.5 rounded-md text-xs font-medium transition-colors ${
-                viewMode === "preview"
-                  ? "bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-sm"
-                  : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300"
-              }`}
-              title="Preview mode"
-            >
-              <Eye className="h-4 w-4" />
-            </button>
-            <button
-              onClick={() => setViewMode("split")}
-              className={`p-1.5 rounded-md text-xs font-medium transition-colors ${
-                viewMode === "split"
-                  ? "bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-sm"
-                  : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300"
-              }`}
-              title="Split view"
-            >
-              <Columns className="h-4 w-4" />
-            </button>
-          </div>
         </div>
       </div>
 

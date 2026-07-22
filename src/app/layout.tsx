@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AppProviders } from "@/components/AppProviders";
 import { Navbar } from "@/components/Navbar";
@@ -72,6 +73,7 @@ export default function RootLayout({
                 <main className="flex-1">{children}</main>
                 <Footer />
               </div>
+              <Analytics />
               <Toaster />
             </AppProviders>
           </TooltipProvider>
